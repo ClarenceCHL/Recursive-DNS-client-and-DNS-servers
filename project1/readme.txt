@@ -1,0 +1,11 @@
+1.Root Server: First it reads the PROJI-DNSRS.txt file line by line and takes out the \r and \n from the strings of each line. Then it splits the texts using space and stores them into arr. Now we check if arr[2] is A. If it is, we store <arr[0],arr[1]> into the dict in DNS_table. Else if it’s NS and arr[1] is “-”, then we put arr[0] into top-level server (default is 127.0.0.1) and create the service socket based on sys.argv[1], the socket will wait until the client server is connected. After the connection is succeed, it reads the data until there is a \n appears. Extract the wanted domain from the data, and use DNS_table to check if it’s there. If yes, return the corresponding A record. Otherwise, return the NS record in the root server.
+
+  Top-level Server: First it reads the PROJI-DNSTS.txt file line by line and takes out the \r and \n from the strings of each line. Then it splits the texts using space and stores them into arr. Now we check if arr[2] is A. If it is, we store <arr[0],arr[1]> into the dict in DNS_table. Else if it’s NS and arr[1] is “-”, then we put arr[0] into top-level server (default is 127.0.0.1) and create the service socket based on sys.argv[1], the socket will wait until the client server is connected. After the connection is succeed, it reads the data until there is a \n appears. Extract the wanted domain from the data, and use DNS_table to check if it’s there. If yes, return the corresponding A record. Otherwise, return the error of not found.
+
+  Client Server: First it creates a connection to the root server based on the commend lines and reads from commend line to get the port number of the top-level server. Then it opens PROJI-HNS.txt to read the data and opens RESOLVED.txt to output the result. The client server reads the requests line by line. For each request, the client server first sends to RS, and if the result is NS, it transports the request to corresponding top-level server, and return the final result to RESOLVED.txt.
+
+2.Our program cannot deal with requests from multiple client servers simultaneously.
+
+3.We encountered some small issues such as extra “\n”s on some strings, but they are all fixed now.
+
+4.We have comprehensively learnt the socket application on the client server and on the rs/ts server. We’ve also learnt the use of string functions and file operations.
